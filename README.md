@@ -17,3 +17,6 @@ La aplicación permite a los usuarios transferir fondos de su cuenta a la cuenta
 ## Lista de Transacciones
 
 Cada transacción realizada (depósito, retiro o transferencia) se registra y se muestra en una tabla en la interfaz de usuario. Esta tabla proporciona detalles como la fecha, el tipo de transacción, el monto, la cuenta de origen y la cuenta de destino (en caso de transferencias). Esta funcionalidad permite a los usuarios realizar un seguimiento de todas sus operaciones financieras.
+
+![Captura de pantalla 2024-06-07 233119](https://github.com/RodStack/SpringWalletRod2.0/assets/57158158/2ba72482-f8cb-4606-a65a-0adb77cc2b36)
+![image](https://github.com/RodStack/SpringWalletRod2.0/assets/57158158/6964bce9-c68e-4308-892a-0a8d9056e87e)
