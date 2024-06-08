@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuenta</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #171717;
+        }
+        .card {
+            background-color: #2D2D2D;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .btn-custom {
+            background-color: #6A5ACD;
+            color: #fff;
+            border-radius: 0.25rem;
+            transition: background-color 0.3s ease;
+        }
+        .btn-custom:hover {
+            background-color: #8A2BE2;
+        }
+        .form-control {
+            background-color: #333;
+            color: #fff;
+            border-radius: 0.25rem;
+        }
+        .error-message {
+            color: #ff4c4c;
+        }
+    </style>
+</head>
+<body class="text-white">
+    <div class="container mx-auto py-8">
+        <div class="card p-6 mb-8">
+            <p class="text-white-400 text-xl text-center">Bienvenido: <span th:text="${username}"></span></p>
+        </div>
+        <div class="card p-8 rounded-lg">
+            <div class="text-center mb-8">
+                <h2 class="text-2xl font-bold">Cuenta de: [[${vistaCuenta.SaldoActual}]]</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="card p-6">
+                    <h3 class="text-xl font-bold mb-4">Depositar Fondos</h3>
+                    <form th:action="@{/cuenta/depositar}" method="post">
+                        <div class="mb-4">
+                            <label for="montoDepositar" class="block mb-2 text-gray-400">Monto:</label>
+                            <input type="number" name="montoDepositar" id="monto" class="form-control w-full px-3 py-2" required/>
+                        </div>
+                        <button type="submit" class="btn-custom px-4 py-2">Depositar</button>
+                    </form>
+                </div>
+                <div class="card p-6">
+                    <h3 class="text-xl font-bold mb-4">Retirar Fondos</h3>
+                    <form th:action="@{/cuenta/retirar}" method="post">
+                        <div class="mb-4">
+                            <label for="montoRetiro" class="block mb-2 text-gray-400">Monto:</label>
+                            <input type="number" name="montoRetiro" id="montoRetiro" class="form-control w-full px-3 py-2" required/>
+                        </div>
+                        <button type="submit" class="btn-custom px-4 py-2">Retirar</button>
+                    </form>
+                </div>
+                <div class="card p-6">
+                    <h3 class="text-xl font-bold mb-4">Transferir Fondos</h3>
+                    <form th:action="@{/cuenta/transferir}" method="post">
+                        <div class="mb-4">
+                            <label for="idClienteDestino" class="block mb-2 text-gray-400">ID del cliente destino:</label>
+                            <select name="idClienteDestino" id="idClienteDestino" class="form-control w-full px-3 py-2" required>
+                                <option value="" disabled selected>Selecciona un cliente</option>
+                                <option th:each="cliente : ${clientes}" th:value="${cliente.id}" th:text="${cliente.username}"></option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label for="montoTransferir" class="block mb-2 text-gray-400">Monto:</label>
+                            <input type="number" name="montoTransferir" id="montoTransferir" class="form-control w-full px-3 py-2" required/>
+                        </div>
+                        <button type="submit" class="btn-custom px-4 py-2">Transferir</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mx-auto py-8">
+        <div class="card p-8">
+            <h1 class="text-2xl font-bold mb-4">Historial de Transacciones</h1>
+            <table class="table-auto w-full">
+                <thead>
+                    <tr class="bg-gray-800">
+                        <th class="px-4 py-2">Fecha</th>
+                        <th class="px-4 py-2">Tipo</th>
+                        <th class="px-4 py-2">Monto</th>
+                        <th class="px-4 py-2">Cuenta Origen</th>
+                        <th class="px-4 py-2">Cuenta Destino</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="transaccion : ${transacciones}" class="bg-gray-700">
+                        <td th:text="${transaccion.fecha}" class="px-4 py-2"></td>
+                        <td th:text="${transaccion.tipo}" class="px-4 py-2"></td>
+                        <td th:text="${transaccion.monto}" class="px-4 py-2"></td>
+                        <td th:text="${transaccion.cuentaOrigen}" class="px-4 py-2"></td>
+                        <td th:text="${transaccion.cuentaDestino}" class="px-4 py-2"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
